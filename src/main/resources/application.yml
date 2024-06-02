@@ -1,0 +1,11 @@
+# yaml(Yet Another Markup Language) 另一种标记语言
+# yaml树形结构层次清晰,不用写大量重复的key,可读性好,输入关键字有完整提示,冒号后面必须有空格
+
+# web相关配置
+# https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html#appendix.application-properties.server
+server:
+  # 端口号
+  port: 8080
+  # 项目根路径
+  servlet:
+    context-path: /
