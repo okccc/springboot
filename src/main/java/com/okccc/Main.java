@@ -11,6 +11,16 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class Main {
     public static void main(String[] args) {
-        SpringApplication.run(Main.class, args);
+        // java10局部变量自动推断类型
+        var ioc = SpringApplication.run(Main.class, args);
+
+        // 看看IOC容器中都有哪些组件
+        String[] beans = ioc.getBeanDefinitionNames();
+        for (String bean : beans) {
+            // SpringBoot把SSM手动配置的核心组件都整合好了,导入启动器就会导入该场景下的所有依赖
+            // web场景：dispatcherServlet、viewResolver、characterEncodingFilter、handlerExceptionResolver...
+            System.out.println("bean = " + bean);
+        }
     }
+
 }
