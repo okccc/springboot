@@ -1,6 +1,7 @@
 package com.okccc;
 
 import com.alibaba.druid.FastsqlException;
+import com.okccc.bean.User;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -25,6 +26,11 @@ public class Main {
 
         // 测试组件注册
         for (String bean : ioc.getBeanNamesForType(FastsqlException.class)) {
+            System.out.println("bean = " + bean);
+        }
+
+        // 测试条件注解
+        for (String bean : ioc.getBeanNamesForType(User.class)) {
             System.out.println("bean = " + bean);
         }
     }
