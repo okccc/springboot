@@ -1,9 +1,11 @@
 package com.okccc;
 
 import com.alibaba.druid.FastsqlException;
+import com.okccc.bean.Person;
 import com.okccc.bean.User;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 /**
  * @Author: okccc
@@ -11,6 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @Desc: 启动类
  */
 @SpringBootApplication
+@EnableConfigurationProperties(value = {Person.class})
 public class Main {
     public static void main(String[] args) {
         // java10局部变量自动推断类型
@@ -33,6 +36,13 @@ public class Main {
         for (String bean : ioc.getBeanNamesForType(User.class)) {
             System.out.println("bean = " + bean);
         }
+
+        // 测试属性绑定
+        Person person = ioc.getBean(Person.class);
+        System.out.println(person.getName());
+        System.out.println(person.getChild().getHobbys().get(0));
+        System.out.println(person.getCats().get(1));
+        System.out.println(person.getDogs().get("d2"));
     }
 
 }
