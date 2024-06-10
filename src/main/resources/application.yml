@@ -9,3 +9,28 @@ server:
   # 项目根路径
   servlet:
     context-path: /
+
+# 日志相关配置(推荐使用logback-spring.xml)
+logging:
+  # 时间格式
+  pattern:
+    dateformat: yyyy-MM-dd HH:mm:ss:SSS
+  # 日志分组
+  group:
+    g01: com.okccc.controller, com.okccc.service
+    g02: com.okccc.mapper
+  # 日志级别
+  level:
+    root: info
+    web: info
+    sql: debug
+    g01: info
+    g02: debug
+  # 输出到文件
+  file:
+    name: /tmp/app.log
+  # 文件归档与滚动和切割
+  logback:
+    rollingpolicy:
+      file-name-pattern: app.%d{yyyy-MM-dd}.%i.gz
+      max-file-size: 1MB
