@@ -25,6 +25,15 @@ spring:
       static-locations: classpath:/webapp
       # 开启静态资源映射规则
       add-mappings: true
+      # 缓存配置
+      cache:
+        cachecontrol:
+          # 缓存周期(秒)
+          max-age: 3600
+          # 共享缓存
+          cache-public: true
+        # 和服务器比对资源的最后一次修改时间,如果没变就直接使用本地缓存,节省服务器资源,F12响应状态码304表示使用了缓存
+        use-last-modified: true
 
 # 日志相关配置(推荐使用logback-spring.xml)
 logging:
