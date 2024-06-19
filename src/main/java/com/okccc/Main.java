@@ -6,12 +6,14 @@ import com.okccc.bean.User;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 /**
  * @Author: okccc
  * @Date: 2023/12/30 16:52:01
  * @Desc: 启动类
  */
+@EnableWebMvc
 @SpringBootApplication
 @EnableConfigurationProperties(value = {Person.class})
 public class Main {
