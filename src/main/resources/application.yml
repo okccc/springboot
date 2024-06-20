@@ -35,6 +35,12 @@ spring:
         # 和服务器比对资源的最后一次修改时间,如果没变就直接使用本地缓存,节省服务器资源,F12响应状态码304表示使用了缓存
         use-last-modified: true
 
+  # spring.mvc配置(org.springframework.boot.autoconfigure.web.servlet.WebMvcProperties)
+  mvc:
+    # 路径匹配规则：默认是新版策略path_pattern_parser,可以切换成老版策略ant_path_matcher
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
 # 日志相关配置(推荐使用logback-spring.xml)
 logging:
   # 时间格式
