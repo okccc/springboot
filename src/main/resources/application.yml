@@ -40,6 +40,12 @@ spring:
     # 路径匹配规则：默认是新版策略path_pattern_parser,可以切换成老版策略ant_path_matcher
     pathmatch:
       matching-strategy: ant_path_matcher
+    # 内容协商
+    contentnegotiation:
+      # 基于请求参数的内容协商,默认关闭
+      favor-parameter: true
+      # 参数名默认format,也可以手动指定,比如改成type
+      parameter-name: format
 
 # 日志相关配置(推荐使用logback-spring.xml)
 logging:

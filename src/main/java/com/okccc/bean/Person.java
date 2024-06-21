@@ -1,5 +1,6 @@
 package com.okccc.bean;
 
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -20,6 +21,7 @@ import java.util.Map;
  * 2.使用@ConfigurationProperties注解进行属性绑定,定义配置项的通用前缀,属性名和配置项的最后一个key相同即可
  * 优点：不用给所有属性挨个添加@Value注解,并且支持读取集合类型
  */
+@JacksonXmlRootElement
 @Data
 @ConfigurationProperties(prefix = "person")
 @Component  // 或者参考XxxAutoConfiguration,在启动类添加@EnableConfigurationProperties(value = {Person.class})
