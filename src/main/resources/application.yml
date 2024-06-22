@@ -46,6 +46,9 @@ spring:
       favor-parameter: true
       # 参数名默认format,也可以手动指定,比如改成type
       parameter-name: format
+      # 增加一种新的媒体类型
+      media-types:
+        yaml: text/yaml
 
 # 日志相关配置(推荐使用logback-spring.xml)
 logging:

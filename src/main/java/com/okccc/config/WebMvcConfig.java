@@ -1,7 +1,9 @@
 package com.okccc.config;
 
+import com.okccc.component.MyYamlHttpMessageConverter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.CacheControl;
+import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -17,7 +19,7 @@ import java.util.concurrent.TimeUnit;
  * @Desc: 自定义类实现WebMvcConfigurer接口,定义SpringMVC底层组件
  */
 @Configuration
-public class MyWebMvcConfig implements WebMvcConfigurer {
+public class WebMvcConfig implements WebMvcConfigurer {
 
     /**
      * 配置静态资源,其它底层组件使用方式也都类似,之前SpringMVC的组件该怎么用还怎么用
@@ -30,6 +32,15 @@ public class MyWebMvcConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/static/**")
                 .addResourceLocations("classpath:/a/", "classpath:/b/")
                 .setCacheControl(CacheControl.maxAge(3600, TimeUnit.SECONDS));
+    }
+
+    /**
+     * 配置消息转换器
+     */
+    @Override
+    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        // 添加一个能把对象转换为yaml格式的MessageConverter
+        converters.add(new MyYamlHttpMessageConverter());
     }
 
     /**

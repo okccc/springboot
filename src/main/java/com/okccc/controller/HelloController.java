@@ -58,6 +58,10 @@ public class HelloController {
      * spring-boot-starter-web - spring-boot-starter-json - jackson-databind - jackson-core
      * web场景启动器引入了jackson处理json的包,所以默认将对象写成json
      * jackson也支持把数据写成xml,导入jackson-dataformat-xml依赖,并在实体类添加@JacksonXmlRootElement注解
+     *
+     * 如何增加支持yaml格式？
+     * 配置媒体类型支持 spring.mvc.contentnegotiation.media-types.yaml=text/yaml
+     * 自定义MyYamlHttpMessageConverter,告诉springboot这个消息转换器支持的媒体类型,然后将组件注册到容器
      */
     @Autowired
     private Person person;
@@ -65,6 +69,7 @@ public class HelloController {
     // http://localhost:8080/person
     // http://localhost:8080/person?format=json
     // http://localhost:8080/person?format=xml
+    // http://localhost:8080/person?format=yaml
     @GetMapping(value = "person")
     public Person person() {
         return person;
