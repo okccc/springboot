@@ -4,9 +4,12 @@ import com.okccc.bean.Person;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Locale;
 
 /**
  * @Author: okccc
@@ -73,6 +76,29 @@ public class HelloController {
     @GetMapping(value = "person")
     public Person person() {
         return person;
+    }
+
+    /**
+     * 国际化
+     * 场景启动器：spring-boot-starter-web - spring-boot-starter - spring-boot-autoconfigure
+     * 自动配置类：org.springframework.boot.autoconfigure.context.MessageSourceAutoConfiguration
+     * 绑定属性类：org.springframework.boot.autoconfigure.context.MessageSourceProperties
+     * 修改配置项：MessageSourceAutoConfiguration - MessageSourceProperties(prefix = "spring.messages") - application.yml
+     * 在resources目录下创建messages_en_US.properties和messages_zh_CN.properties文件
+     * idea的Resource Bundle Editor插件会自动创建Resources Bundle 'messages'目录
+     * 不同语言环境的页面展示效果,可通过设置浏览器的首选语言进行调试 chrome - settings - language
+     */
+    @Autowired
+    private MessageSource messageSource;
+
+    // http://localhost:8080/message
+    @GetMapping(value = "message")
+    public String message(HttpServletRequest request) {
+        // 获取客户端的语言环境
+        Locale locale = request.getLocale();
+        System.out.println("locale = " + locale);  // locale = zh_CN
+        // 获取Resource Bundle 'messages'目录下符合当前语言环境的配置文件中的国际化配置项
+        return messageSource.getMessage("login", null, locale);
     }
 
 }

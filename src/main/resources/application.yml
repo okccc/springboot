@@ -50,6 +50,11 @@ spring:
       media-types:
         yaml: text/yaml
 
+  # 国际化配置(org.springframework.boot.autoconfigure.context.MessageSourceProperties)
+  messages:
+    basename: messages
+    encoding: UTF-8
+
 # 日志相关配置(推荐使用logback-spring.xml)
 logging:
   # 时间格式
