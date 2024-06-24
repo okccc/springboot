@@ -5,8 +5,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Locale;
@@ -99,6 +101,33 @@ public class HelloController {
         System.out.println("locale = " + locale);  // locale = zh_CN
         // 获取Resource Bundle 'messages'目录下符合当前语言环境的配置文件中的国际化配置项
         return messageSource.getMessage("login", null, locale);
+    }
+
+    /**
+     * thymeleaf
+     * 场景启动器：spring-boot-starter-web - spring-boot-starter - spring-boot-autoconfigure
+     * 自动配置类：org.springframework.boot.autoconfigure.thymeleaf.ThymeleafAutoConfiguration
+     * 绑定属性类：org.springframework.boot.autoconfigure.thymeleaf.ThymeleafProperties
+     * 修改配置项：ThymeleafAutoConfiguration - ThymeleafProperties(prefix = "spring.thymeleaf") - application.yml
+     *
+     * 前后端分离模式：@RestController直接响应JSON数据
+     * 服务端页面渲染：@Controller + Thymeleaf模板引擎
+     */
+    // http://localhost:8080/view
+    @GetMapping(value = "view")
+    public String view(@RequestParam("name") String name, Model model) {
+        // 把需要给页面共享的数据放到Model中
+        String text = "<span style='color:red'>" + name + "</span>";
+        model.addAttribute("msg", text);
+
+        // 动态传入路径、样式、条件判断
+        model.addAttribute("imgUrl", "/2.jpg");
+        model.addAttribute("style", "width: 400px");
+        model.addAttribute("show", true);
+
+        // 物理视图 = 前缀 + 逻辑视图 + 后缀
+        // 真实地址 = classpath:/templates/hello.html
+        return "hello";
     }
 
 }

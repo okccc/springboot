@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<!-- 在html标签中引入xmlns:th="http://www.thymeleaf.org"就会有语法提示 -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--
+    th:xxx：动态渲染指定的html标签属性值、或者th指令(遍历、判断等)
+    th:text  替换标签体的内容,且会转义
+    th:utext 替换标签体的内容,但不会转转义html标签,真正显示为html该有的样式
+    th:任意html属性  动态替换任意属性值
+    th:attr  任意属性指定
+
+    表达式：动态取值
+    ${}  变量取值,Model给页面共享的数据都可以直接用${}获取
+    @{}  专门取url路径,比${}直接取更安全,可以避免绝对路径和相对路径的问题,不管项目的context-path如何变化都不影响
+
+    系统工具&内置对象,https://www.thymeleaf.org/doc/tutorials/3.1/usingthymeleaf.html#appendix-a-expression-basic-objects
+    进入官方文档直接搜索就行,比如字符串相关的直接搜String就能找到所有方法,#String开头即可调用
+    |... ${} ...| 拼接字符串
+ -->
+<h1>hello: <span th:text="${msg}"></span></h1>
+<h1 th:text="${msg}">aaa</h1>
+<h1 th:utext="${msg}">bbb</h1>
+<img th:src="@{${imgUrl}}" src="1.jpg" style="width:300px;"/>
+<img src="1.jpg" style="width:300px;" th:attr="src=@{${imgUrl}},style=${style}"/>
+<img th:src="@{${imgUrl}}" th:style="${style}" th:if="${show}">
+<h1 th:text="${#strings.toUpperCase(msg)}"/>
+<h1 th:text="|prefix ${msg} suffix|"/>
+</body>
+</html>

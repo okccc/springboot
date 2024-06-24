@@ -50,6 +50,15 @@ spring:
       media-types:
         yaml: text/yaml
 
+  # thymeleaf配置(org.springframework.boot.autoconfigure.thymeleaf.ThymeleafProperties)
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    # 开发期间关闭缓存,页面一改就能看到效果,上线后再开启
+    cache: false
+    # 渲染模板之前会先检查是否存在,关闭可以提升运行速度
+    check-template: false
+
   # 国际化配置(org.springframework.boot.autoconfigure.context.MessageSourceProperties)
   messages:
     basename: messages
