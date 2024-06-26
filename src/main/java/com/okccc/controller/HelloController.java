@@ -130,4 +130,45 @@ public class HelloController {
         return "hello";
     }
 
+    /**
+     * 异常处理
+     * 场景启动器：spring-boot-starter-web - spring-boot-starter - spring-boot-autoconfigure
+     * 自动配置类：org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration
+     * 绑定属性类：org.springframework.boot.autoconfigure.web.ServerProperties
+     * 修改配置项：ErrorMvcAutoConfiguration - ServerProperties(prefix = "server") - application.yml
+     *
+     * SpringMVC异常处理：@ExceptionHandler标识方法只处理当前类的错误,@ControllerAdvice标识类统一处理所有错误
+     * 异常先由SpringMVC处理,不行再交给SpringBoot扩展的异常处理机制/error,浏览器响应白页,移动端(postman)响应json
+     *
+     * 源码详解
+     * ErrorMvcAutoConfiguration - BasicErrorController源码85行返回HTML,95行返回ResponseEntity(JSON)
+     *
+     * 85行的errorHtml方法：
+     * HttpStatus status = getStatus(request);
+     * ModelAndView modelAndView = resolveErrorView(request, response, status, model);
+     * return (modelAndView != null) ? modelAndView : new ModelAndView("error", model);
+     * 先根据状态码解析错误视图 - 解析不到就去找error视图 - 找不到就用ErrorMvcAutoConfiguration源码151行
+     * SpringBoot提供的默认error视图,源码198行render方法渲染部分就是浏览器经典的"Whitelabel Error Page"
+     *
+     * 其中resolveErrorView方法点进去进入DefaultErrorViewResolver源码101、109、119行
+     * 能匹配精确码(404、500)：
+     *   有模板引擎,就去找classpath:/templates/error/精确码.html
+     *   没有模板引擎,就去找四大静态资源文件夹/精确码.html
+     * 不能匹配精确码就去匹配模糊码(4xx、5xx)：
+     *   有模板引擎,就去找classpath:/templates/error/模糊码.html
+     *   没有模板引擎,就去找四大静态资源文件夹/模糊码.html
+     *
+     * 最佳实战
+     * 前后端分离模式：@ControllerAdvice + @ExceptionHandler 统一处理后端所有错误
+     * 服务端页面渲染：
+     * 客户端或服务器错误：在classpath:/templates/error/目录下放精确码(404、500)页面和模糊码(4xx、5xx)页面
+     * 通用业务错误：在classpath:/templates/error.html页面显示错误信息
+     * 核心业务错误：每个错误都应该由代码控制,跳转到定制的错误页面
+     */
+    // http://localhost:8080/err
+    @GetMapping(value = "err")
+    public int err() {
+        return 10/0;
+    }
+
 }

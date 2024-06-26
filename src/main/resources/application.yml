@@ -13,6 +13,9 @@ server:
   # 项目根路径
   servlet:
     context-path: /
+  # 当发生错误时会将错误请求转发给/error,也就是SpringBoot的默认白页 http://localhost:8080/error
+  error:
+    path: /error
 
 # spring配置
 spring:
