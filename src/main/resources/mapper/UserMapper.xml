@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 映射文件负责写crud -->
+<mapper namespace="com.okccc.mapper.UserMapper">
+
+    <!-- User selectById(@Param("id") Integer id); -->
+    <select id="selectById" resultType="com.okccc.bean.User">
+        select * from user where id = #{id}
+    </select>
+
+    <!-- List<User> selectList(); -->
+    <select id="selectList" resultType="com.okccc.bean.User">
+        select * from user
+    </select>
+
+    <!-- int insert(User user); -->
+    <insert id="insert">
+        insert into user values(#{id}, #{username}, #{password}, #{age}, #{gender}, #{email})
+    </insert>
+
+    <!-- int updateById(User user); -->
+    <update id="updateById">
+        update user set username = #{username}, password = #{password}, age = #{age}, gender = #{gender}, email = #{email} where id = #{id}
+    </update>
+
+    <!-- int deleteById(Integer id); -->
+    <delete id="deleteById">
+        delete from user where id = #{id}
+    </delete>
+</mapper>

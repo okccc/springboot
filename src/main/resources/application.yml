@@ -67,6 +67,33 @@ spring:
     basename: messages
     encoding: UTF-8
 
+  # 数据源配置(org.springframework.boot.autoconfigure.jdbc.DataSourceProperties)
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/ssm?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8&rewriteBatchedStatements=true&allowPublicKeyRetrieval=true&allowMultiQueries=true
+    username: root
+    password: root@123
+
+# mybatis配置(org.mybatis.spring.boot.autoconfigure.MybatisProperties)
+mybatis:
+  # settings
+  configuration:
+    # 日志实现,SLF4J/LOG4J2/STDOUT_LOGGING
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+    # 将下划线映射成驼峰规则
+    map-underscore-to-camel-case: true
+    # 设置映射范围,NONE/PARTIAL/FULL
+    auto-mapping-behavior: full
+    # 开启延迟加载,需要啥就查啥而不是一次性全部查出来,可以对比DEBUG信息执行的sql条数
+    lazy-loading-enabled: true
+    # 开启缓存,可以对比DEBUG信息执行的sql次数
+    cache-enabled: true
+  # typeAliases
+  type-aliases-package: com.okccc.bean
+  # mappers
+  mapper-locations: classpath:/mapper/*.xml
+
 # 日志相关配置(推荐使用logback-spring.xml)
 logging:
   # 时间格式

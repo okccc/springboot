@@ -3,6 +3,7 @@ package com.okccc;
 import com.alibaba.druid.FastsqlException;
 import com.okccc.bean.Person;
 import com.okccc.bean.User;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
  * @Desc: 启动类
  */
 @EnableWebMvc
+@MapperScan(basePackages = "com.okccc.mapper")  // 告诉mybatis扫描哪个包,这样就不用给每个Mapper接口添加@Mapper注解
 @SpringBootApplication
 @EnableConfigurationProperties(value = {Person.class})
 public class Main {
