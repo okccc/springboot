@@ -69,11 +69,44 @@ spring:
 
   # 数据源配置(org.springframework.boot.autoconfigure.jdbc.DataSourceProperties)
   datasource:
-    type: com.zaxxer.hikari.HikariDataSource
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/ssm?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8&rewriteBatchedStatements=true&allowPublicKeyRetrieval=true&allowMultiQueries=true
-    username: root
-    password: root@123
+#    type: com.zaxxer.hikari.HikariDataSource
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/ssm?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8&rewriteBatchedStatements=true&allowPublicKeyRetrieval=true&allowMultiQueries=true
+#    username: root
+#    password: root@123
+    # 连接池类型
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/ssm?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8&rewriteBatchedStatements=true&allowPublicKeyRetrieval=true&allowMultiQueries=true
+      username: root
+      password: root@123
+      # 初始化时连接数,默认0
+      initial-size: 5
+      # 最小空闲连接数,默认0
+      min-idle: 5
+      # 最大活跃连接数,默认8
+      max-active: 20
+      # 没有空闲连接时等待的超时时间(ms),默认-1表示一直等待
+      max-wait: 60000
+      # 校验连接是否有效的sql
+      validation-query: select 1
+      # 借出连接时是否校验(会降低性能)
+      test-on-borrow: false
+      # 归还连接时是否校验(会降低性能)
+      test-on-return: false
+      # 连接空闲时是否校验(不影响性能,保证安全性)
+      test-while-idle: true
+      # 空闲连接回收器每隔60秒(默认)运行一次,是testWhileIdle的判断依据,要小于mysql的wait_timeout
+      time-between-eviction-runs-millis: 60000
+      # 空闲连接超过30分钟(默认)就被回收
+      min-evictable-idle-time-millis: 30000
+      # 是否缓存PreparedStatement也就是PSCache,对支持游标的数据库性能提升巨大比如oracle,在mysql下建议关闭
+      pool-prepared-statements: false
+      # 要启用PSCache必须配置大于0,PoolPreparedStatements会自动触发修改为true,在Druid中不存在Oracle下PSCache占用内存过多的问题,可以把这个数值调大至100
+      max-pool-prepared-statement-per-connection-size: -1
+      # 合并多个DruidDataSource的监控数据
+      use-global-data-source-stat: true
 
 # mybatis配置(org.mybatis.spring.boot.autoconfigure.MybatisProperties)
 mybatis:
