@@ -6,6 +6,9 @@
 # https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html#appendix.application-properties.web
 # https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html#appendix.application-properties.data
 
+# 开启调试模式,会在控制台详细打印自动配置类是否生效(Positive/Negative),类似mvn dependency:analyze分析工程依赖
+debug: true
+
 # server配置(org.springframework.boot.autoconfigure.web.ServerProperties)
 server:
   # 端口号
