@@ -1,5 +1,6 @@
 package com.okccc.controller;
 
+import com.okccc.bean.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.*;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -78,6 +79,34 @@ public class RedisController {
         hashOperations.put("emp", "age", "19");
         hashOperations.put("emp", "gender", "男");
         return Objects.requireNonNull(hashOperations.get("emp", "name")).toString();
+    }
+
+    // RedisAutoConfiguration源码61行使用@Bean注册组件RedisTemplate
+    // key和value是Object类型(可以操作对象,更灵活)
+    @Autowired
+    private RedisTemplate<Object, Object> redisTemplate;
+
+    // http://localhost:8080/redis/user/save
+    // http://localhost:8080/redis/user/save?format=json
+    @GetMapping(value = "user/save")
+    public User saveUser() {
+        // 往redis保存java对象
+        User user = new User(1, "grubby", "123456", 19, "1", "orc@qq.com");
+        // 问题1：java.lang.IllegalArgumentException: DefaultSerializer requires a Serializable payload but received an object of type [com.okccc.bean.User]
+        // 查看RedisTemplate组件的源码136行,发现使用的默认序列化器是JdkSerializationRedisSerializer
+        // 点进去找到DefaultSerializer源码41行,发现要序列化的对象必须实现Serializable接口,也就是上面的异常信息
+
+        // 问题2：修改User类实现Serializable接口后数据能写进redis了,但是保存的User对象不可视(���看着像乱码)
+        // 考虑系统兼容性建议将所有对象都存储为JSON格式,官方RedisTemplate实现不了需要定制化组件,详见MyRedisConfiguration
+        redisTemplate.opsForValue().set("user", user);
+        return user;
+    }
+
+    // http://localhost:8080/redis/user/get
+    // http://localhost:8080/redis/user/get?format=json
+    @GetMapping(value = "user/get")
+    public User getUser() {
+        return (User) redisTemplate.opsForValue().get("user");
     }
 
 }
