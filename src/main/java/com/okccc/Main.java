@@ -4,9 +4,11 @@ import com.alibaba.druid.FastsqlException;
 import com.okccc.bean.Person;
 import com.okccc.bean.User;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 /**
@@ -21,7 +23,16 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 public class Main {
     public static void main(String[] args) {
         // java10局部变量自动推断类型
-        var ioc = SpringApplication.run(Main.class, args);
+//        var ioc = SpringApplication.run(Main.class, args);
+
+        // 查看run方法源码发现包含两步,可以拆开写方便自定义SpringApplication
+        SpringApplication application = new SpringApplication(Main.class);
+
+        // 此处可以做很多设置,比如设置banner模式,但是配置文件优先级更高
+        application.setBannerMode(Banner.Mode.OFF);
+
+        // 启动应用
+        ConfigurableApplicationContext ioc = application.run(args);
 
         // 看看IOC容器中都有哪些组件
         String[] beans = ioc.getBeanDefinitionNames();
