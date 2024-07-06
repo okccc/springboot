@@ -29,6 +29,11 @@ spring:
   main:
     banner-mode: console
 
+  # springboot只认application.yml,多个配置可通过active激活,如果key重复的话外部配置会覆盖内部配置
+  # 切换环境要进来改application.yml,最终boot项目会打成jar包,可通过启动参数--active=dev动态指定激活环境
+  profiles:
+    active: dev
+
   # spring.web配置(org.springframework.boot.autoconfigure.web.WebProperties)
   web:
     # 静态资源
