@@ -16,7 +16,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
  * @Date: 2023/12/30 16:52:01
  * @Desc: 启动类
  */
-@EnableWebMvc
+//@EnableWebMvc  // 不能随便加,会禁用SpringBoot的默认配置,相应的application.yaml的部分配置也会失效
 @MapperScan(basePackages = "com.okccc.mapper")  // 告诉mybatis扫描哪个包,这样就不用给每个Mapper接口添加@Mapper注解
 @SpringBootApplication
 @EnableConfigurationProperties(value = {Person.class})
