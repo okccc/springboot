@@ -256,3 +256,16 @@ WebMvcConfigurer源码分析
 # 包外：application-dev.yml    server.port=8004
 # 启动端口：命令行 > 8004 > 8003 > 8002 > 8001
 ```
+
+## 自定义starter
+```shell
+# 项目中会有一些独立于业务之外的通用功能,可以将其单独封装成starter,供其它项目引用
+# 举例：将发短信功能单独抽取出来,其它项目导入此starter都具备发短信功能
+# 1.创建自定义项目robot-starter,导入spring-boot-starter-xxx基础依赖和其它相关依赖
+# 2.编写通用功能 - 选中项目 - 右键 - Run Maven - clean install 打包并部署到本地仓库
+# 3.SpringBoot默认只扫描主程序所在包,第三方启动器的包路径是扫不到的,需要自定义RobotAutoConfiguration配置类
+# 通过@Import或@Bean手动导入该启动器下的所有组件,然后在项目启动类添加@Import(RobotAutoConfiguration.class),这样看上去有点冗余
+# 4.继续优化,借鉴SpringBoot的@EnableXxx,自定义@EnableRobot注解通过@Import(RobotAutoConfiguration.class)引入配置类,然后在项目启动类添加@EnableRobot
+# 5.终极方案,借鉴SpringBoot的SPI机制,自定义META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports
+# 指定项目启动时要加载的所有配置类,这样就无需在项目启动类添加任何注解,实现完全自动化
+```

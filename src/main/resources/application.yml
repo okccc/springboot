@@ -138,6 +138,7 @@ spring:
         pool:
           enabled: true
           max-active: 8
+
   # kafka配置(org.springframework.boot.autoconfigure.kafka.KafkaProperties)
   kafka:
     bootstrap-servers: localhost:9092
@@ -188,3 +189,8 @@ logging:
     rollingpolicy:
       file-name-pattern: app.%d{yyyy-MM-dd}.%i.gz
       max-file-size: 1MB
+
+# 自定义启动器相关配置
+robot:
+  name: grubby
+  age: 19

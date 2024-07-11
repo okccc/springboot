@@ -123,6 +123,13 @@
             <groupId>org.springframework.kafka</groupId>
             <artifactId>spring-kafka</artifactId>
         </dependency>
+
+        <!-- 导入自定义starter -->
+        <dependency>
+            <groupId>com.example</groupId>
+            <artifactId>robot-starter</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <build>
