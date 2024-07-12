@@ -34,6 +34,12 @@ spring:
   profiles:
     active: dev
 
+  # jackson时区配置(org.springframework.boot.autoconfigure.jackson.JacksonProperties)
+  # Jackson转换数据时默认使用UTC时间,这样给前端返回的数据会和数据库差8小时,要和数据库时区保持一致
+  # Asia/Shanghai=GMT+8,数据库url添加&serverTimeZone=Asia%2FShanghai或者&serverTimeZone=GMT%2B8
+  jackson:
+    time-zone: GMT+8
+
   # spring.web配置(org.springframework.boot.autoconfigure.web.WebProperties)
   web:
     # 静态资源
