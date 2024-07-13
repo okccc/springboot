@@ -73,6 +73,11 @@ spring:
       # 增加一种新的媒体类型
       media-types:
         yaml: text/yaml
+    # 自定义日期和时间格式
+    format:
+      date: yyyy-MM-dd
+      time: HH:mm:ss
+      date-time: yyyy-MM-dd HH:mm:ss
 
   # thymeleaf配置(org.springframework.boot.autoconfigure.thymeleaf.ThymeleafProperties)
   thymeleaf:
