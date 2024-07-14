@@ -130,6 +130,12 @@
             <artifactId>robot-starter</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+
+        <!-- test场景启动器 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
