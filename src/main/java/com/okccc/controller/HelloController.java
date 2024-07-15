@@ -171,4 +171,34 @@ public class HelloController {
         return 10/0;
     }
 
+    /**
+     * web新特性之problemdetails https://www.rfc-editor.org/rfc/rfc7807
+     * 使用postman模拟ResponseEntityExceptionHandler源码119行的HttpRequestMethodNotSupportedException请求方式异常
+     * 程序异常会由我们自定义的@ControllerAdvice类统一处理,这里先注释掉,验证下SpringBoot提供的ProblemDetails异常信息返回格式
+     *
+     * problemdetails开启前：spring.mvc.problemdetails.enabled=false(默认)
+     * 点击Headers发现：Content-Type=application/json
+     * {
+     *     "timestamp": "2024-02-15T02:51:49.138+00:00",
+     *     "status": 405,
+     *     "error": "Method Not Allowed",
+     *     "path": "/method"
+     * }
+     *
+     * problemdetails开启后：spring.mvc.problemdetails.enabled=true
+     * 点击Headers发现：Content-Type=application/problem+json,使用了新的MediaType,会带上详细的problemdetails
+     * {
+     *     "type": "about:blank",
+     *     "title": "Method Not Allowed",
+     *     "status": 405,
+     *     "detail": "Method 'POST' is not supported.",
+     *     "instance": "/method"
+     * }
+     */
+    // http://localhost:8080/method
+    @GetMapping(value = "method")
+    public String method() {
+        return "test web new feature: problemdetails";
+    }
+
 }

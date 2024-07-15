@@ -78,6 +78,9 @@ spring:
       date: yyyy-MM-dd
       time: HH:mm:ss
       date-time: yyyy-MM-dd HH:mm:ss
+    # Problem Details功能默认关闭,可以对比开启前后响应的错误信息
+    problemdetails:
+      enabled: true
 
   # thymeleaf配置(org.springframework.boot.autoconfigure.thymeleaf.ThymeleafProperties)
   thymeleaf:

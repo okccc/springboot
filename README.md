@@ -179,6 +179,10 @@ WebMvcConfigurer源码分析
 # c.useLastModified：是否使用最后一次修改,和服务器比对最后一次修改时间,如果没变就直接使用本地缓存,节省服务器资源
 
 # 431行：WelcomePageHandlerMapping 欢迎页,项目启动时默认访问静态资源index.html,同时顺带访问favicon.ico,浏览器页面图标会发生变化
+
+# 666行：ProblemDetailsExceptionHandler,条件注解生效需添加配置项spring.mvc.problemdetails.enabled=true
+# 该类标注了@ControllerAdvice集中处理系统异常,并且继承自ResponseEntityExceptionHandler,点击去查看源码118行
+# 当出现这些异常时会被SpringBoot以RFC7807规范方式返回错误数据,详见HelloController的method方法
 ```
 
 ## 整合mybatis
