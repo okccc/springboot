@@ -1,0 +1,3 @@
+# key是SpringApplicationRunListener接口的全类名,value是自定义监听器类的全类名
+org.springframework.boot.SpringApplicationRunListener=com.okccc.listener.MySpringApplicationRunListener
+org.springframework.context.ApplicationListener=com.okccc.listener.MyApplicationListener
