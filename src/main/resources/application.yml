@@ -208,3 +208,13 @@ logging:
 robot:
   name: grubby
   age: 19
+
+# actuator配置(org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties)
+management:
+  endpoints:
+    # 暴露所有端点信息
+    enabled-by-default: true
+    # 以web方式暴露
+    web:
+      exposure:
+        include: '*'

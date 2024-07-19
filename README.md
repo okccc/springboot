@@ -273,3 +273,17 @@ WebMvcConfigurer源码分析
 # 5.终极方案,借鉴SpringBoot的SPI机制,自定义META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports
 # 指定项目启动时要加载的所有配置类,这样就无需在项目启动类添加任何注解,实现完全自动化
 ```
+
+## 整合actuator
+```shell
+# Spring Actuator可以更好地管理和监控SpringBoot应用 http://localhost:8080/actuator
+# 场景启动器：spring-boot-starter-actuator - spring-boot-actuator-autoconfigure
+# 自动配置类：org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration - @Bean注册一堆Endpoint组件
+# 绑定属性类：org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties
+# 修改配置项：WebEndpointAutoConfiguration - WebEndpointProperties(prefix = "management.endpoints.web") - application.yml
+
+# 安装Prometheus时序数据库
+docker run -p 9090:9090 -d -v pc:/etc/prometheus prom/prometheus
+# 安装Grafana,默认账号密码admin/admin
+docker run -d --name=grafana -p 3000:3000 grafana/grafana
+```
